@@ -1,0 +1,60 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "sahlowle/larawatch",
+    "version": "1.0.0",
+    "type": "library",
+    "description": "A Laravel application monitoring package — requests, exceptions, jobs, health checks, cache, mail, and scheduled tasks.",
+    "keywords": [
+        "laravel",
+        "monitor",
+        "larawatch",
+        "health",
+        "telescope",
+        "metrics"
+    ],
+    "homepage": "https://github.com/sahlowle/larawatch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sahlowle",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "livewire/livewire": "^3.0",
+        "spatie/laravel-package-tools": "^1.16",
+        "illuminate/support": "^11.0|^12.0",
+        "dragonmantank/cron-expression": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sahlowle\\Larawatch\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sahlowle\\Larawatch\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sahlowle\\Larawatch\\LarawatchServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

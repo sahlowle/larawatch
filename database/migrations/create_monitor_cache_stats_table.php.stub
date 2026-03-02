@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function getConnection(): ?string
+    {
+        return config('monitor.connection');
+    }
+
+    public function up(): void
+    {
+        Schema::connection($this->getConnection())->create(config('monitor.table_prefix', 'monitor_').'cache_stats', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('hit_rate', 5, 2)->default(0);
+            $table->decimal('memory_usage_percent', 5, 2)->default(0);
+            $table->unsignedBigInteger('keys_stored')->default(0);
+            $table->unsignedBigInteger('misses_per_hour')->default(0);
+            $table->unsignedBigInteger('evictions')->default(0);
+            $table->string('driver', 50)->default('redis');
+            $table->string('driver_version', 20)->nullable();
+            $table->json('meta')->nullable();
+            $table->timestamp('recorded_at')->useCurrent();
+
+            $table->index('recorded_at');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::connection($this->getConnection())->dropIfExists(config('monitor.table_prefix', 'monitor_').'cache_stats');
+    }
+};
