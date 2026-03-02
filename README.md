@@ -1,15 +1,22 @@
 # Larawatch
 
+<div align="center">
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sahlowle/larawatch.svg?style=flat-square)](https://packagist.org/packages/sahlowle/larawatch)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Laravel](https://img.shields.io/badge/Laravel-11.x%20%2F%2012.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![Livewire](https://img.shields.io/badge/Livewire-4.x-FB70A9?style=flat-square&logo=livewire&logoColor=white)](https://livewire.laravel.com)
 [![License](https://img.shields.io/github/license/sahlowle/larawatch.svg?style=flat-square)](LICENSE.md)
 
-A beautiful, self-hosted **Laravel application monitoring dashboard** — tracks HTTP requests, exceptions, queue jobs, health checks, cache stats, mail, and scheduled tasks, all without any external service.
+### A beautiful, self-hosted Laravel application monitoring dashboard
 
-![Larawatch Dashboard](screenshot.png)
+Track HTTP requests, exceptions, queue jobs, health checks, cache stats, mail, and scheduled tasks — **all without any external service.**
+
+</div>
 
 ---
 
-## Features
+## ✨ Features
 
 | Module | What it tracks |
 |---|---|
@@ -23,7 +30,7 @@ A beautiful, self-hosted **Laravel application monitoring dashboard** — tracks
 
 ---
 
-## Requirements
+## 📋 Requirements
 
 - PHP **8.2+**
 - Laravel **11.x / 12.x**
@@ -31,7 +38,7 @@ A beautiful, self-hosted **Laravel application monitoring dashboard** — tracks
 
 ---
 
-## Installation
+## 🚀 Installation
 
 ### 1. Install via Composer
 
@@ -51,7 +58,9 @@ php artisan vendor:publish --tag="larawatch-config"
 php artisan migrate
 ```
 
-### 4. Record exceptions (add to `bootstrap/app.php`)
+### 4. Record exceptions
+
+Add the following to your `bootstrap/app.php`:
 
 ```php
 ->withExceptions(function (Exceptions $exceptions): void {
@@ -67,11 +76,11 @@ php artisan migrate
 })
 ```
 
-That's it! Visit `/monitor` to see your dashboard.
+> ✅ That's it! Visit `/monitor` to see your dashboard.
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 After publishing, edit `config/larawatch.php`:
 
@@ -92,13 +101,13 @@ return [
 
     // Toggle individual modules
     'features' => [
-        'requests'       => true,
-        'exceptions'     => true,
-        'jobs'           => true,
-        'health'         => true,
-        'cache'          => true,
-        'mail'           => true,
-        'scheduled_tasks'=> true,
+        'requests'        => true,
+        'exceptions'      => true,
+        'jobs'            => true,
+        'health'          => true,
+        'cache'           => true,
+        'mail'            => true,
+        'scheduled_tasks' => true,
     ],
 
     // How long to keep data
@@ -126,7 +135,7 @@ return [
 
 ---
 
-## Authorization
+## 🔐 Authorization
 
 In **local** environments, all authenticated users can access the dashboard.
 
@@ -140,7 +149,7 @@ Gate::define('viewMonitor', function ($user) {
 
 ---
 
-## Pruning Old Data
+## 🗑️ Pruning Old Data
 
 The package provides the `larawatch:prune` command to clean up old records. Add it to your `routes/console.php` scheduler:
 
@@ -152,11 +161,11 @@ Schedule::command('larawatch:prune --force')->daily();
 Schedule::command('larawatch:prune --type=requests --force')->hourly();
 ```
 
-Available types: `requests`, `exceptions`, `jobs`, `health_checks`, `cache_stats`, `mails`, `scheduled_tasks`.
+**Available types:** `requests`, `exceptions`, `jobs`, `health_checks`, `cache_stats`, `mails`, `scheduled_tasks`
 
 ---
 
-## Dashboard Routes
+## 🗺️ Dashboard Routes
 
 | URL | Description |
 |---|---|
@@ -172,7 +181,7 @@ Available types: `requests`, `exceptions`, `jobs`, `health_checks`, `cache_stats
 
 ---
 
-## Publishing Assets
+## 📦 Publishing Assets
 
 ```bash
 # Config only
@@ -187,7 +196,7 @@ php artisan vendor:publish --tag="larawatch-views"
 
 ---
 
-## Local Development
+## 🛠️ Local Development
 
 If you are working on this package inside a host Laravel app using a path repository:
 
@@ -209,8 +218,11 @@ Then run:
 composer update sahlowle/larawatch
 ```
 
+# Screenshot
+![Larawatch Dashboard](screenshot.png)
+
 ---
 
-## License
+## 📄 License
 
 The MIT License (MIT). See [LICENSE](LICENSE.md) for details.
