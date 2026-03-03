@@ -72,13 +72,15 @@ class LarawatchServiceProvider extends PackageServiceProvider
     public function bootingPackage(): void
     {
         $this->registerGate();
+        $this->registerMiddleware();
+        $this->registerLivewireComponents();
+
+
 
         if (! config('larawatch.enabled')) {
             return;
         }
 
-        $this->registerMiddleware();
-        $this->registerLivewireComponents();
         $this->registerQueueListeners();
         $this->registerMailListeners();
         $this->registerSchedulerListeners();
@@ -90,6 +92,7 @@ class LarawatchServiceProvider extends PackageServiceProvider
     protected function registerGate(): void
     {
         Gate::define('viewMonitor', function ($user) {
+
             if (app()->environment('local')) {
                 return true;
             }
@@ -121,7 +124,7 @@ class LarawatchServiceProvider extends PackageServiceProvider
 
         $router->aliasMiddleware('monitor.auth', MonitorAuthMiddleware::class);
 
-        if (config('larawatch.features.requests', true)) {
+        if (config('larawatch.enabled') && config('larawatch.features.requests', true)) {
             $router->pushMiddlewareToGroup('web', MonitorRequestMiddleware::class);
         }
     }

@@ -102,6 +102,7 @@
                     <svg class="chart-svg" id="traffic-chart" viewBox="0 0 600 160" preserveAspectRatio="none"></svg>
                 </div>
                 <div class="chart-labels" id="chart-labels" wire:ignore></div>
+                <div id="chart-data-store" data-chart="{{ json_encode($this->chartData) }}" style="display:none;"></div>
             </div>
         </div>
 
@@ -323,10 +324,15 @@
 
             // Load chart on init and on Livewire updates
             function loadChart() {
-                fetch(`{{ route('monitor.api.chart') }}?minutes={{ $chartMinutes }}`)
-                    .then(r => r.json())
-                    .then(data => drawChart(data))
-                    .catch(() => {});
+                const store = document.getElementById('chart-data-store');
+                if (store && store.getAttribute('data-chart')) {
+                    try {
+                        const data = JSON.parse(store.getAttribute('data-chart'));
+                        drawChart(data);
+                    } catch (e) {
+                        console.error('Failed to parse chart data:', e);
+                    }
+                }
             }
 
             loadChart();
